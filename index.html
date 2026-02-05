@@ -266,8 +266,8 @@
         const events = [
             {
                 id: 1,
-                org: "Kilo Team Throwdown",
-                title: "Inicio Inscripciones",
+                org: "Apertura Inscripciones",
+                title: "Kilo Team",
                 dateStart: new Date(2026, 1, 4), 
                 dateEnd: new Date(2026, 1, 4), 
                 type: "inscripcion",
@@ -281,8 +281,8 @@
             },
             {
                 id: 2,
-                org: "Wodstock Chile",
-                title: "Open Clasificatorio",
+                org: "Open Clasificatorio",
+                title: "Wodstock Chile",
                 dateStart: new Date(2026, 1, 26), 
                 dateEnd: new Date(2026, 2, 16),
                 type: "open",
@@ -311,8 +311,8 @@
             },
             {
                 id: 4,
-                org: "Kilo Team Throwdown",
-                title: "FINAL PRESENCIAL",
+                org: "FINAL PRESENCIAL",
+                title: "Kilo Team",
                 dateStart: new Date(2026, 3, 11),
                 dateEnd: new Date(2026, 3, 12),
                 type: "final",
@@ -326,8 +326,8 @@
             },
             {
                 id: 5,
-                org: "Strongfit Games",
-                title: "Open Online",
+                org: "Open Online",
+                title: "Strongfit Games",
                 dateStart: new Date(2026, 4, 5),
                 dateEnd: new Date(2026, 4, 15),
                 type: "open",
@@ -341,8 +341,8 @@
             },
             {
                 id: 6,
-                org: "Strongfit Games",
-                title: "GRAN FINAL",
+                org: "GRAN FINAL",
+                title: "Strongfit Games",
                 dateStart: new Date(2026, 5, 20),
                 dateEnd: new Date(2026, 5, 22),
                 type: "final",
@@ -356,8 +356,8 @@
             },
             {
                 id: 7,
-                org: "Wodstock Chile",
-                title: "WINTER EDITION",
+                org: "WINTER EDITION",
+                title: "Wodstock Chile",
                 dateStart: new Date(2026, 6, 24),
                 dateEnd: new Date(2026, 6, 26),
                 type: "final",
@@ -553,7 +553,7 @@ END:VCALENDAR`;
                 dayEvents.forEach(evt => {
                     const cfg = getBrandConfig(evt.brand);
                     eventHtml += `<div onclick="openModal(${evt.id}); event.stopPropagation();" class="event-bar ${cfg.calBg} text-white shadow hover:opacity-90">
-                        ${evt.type === 'inscripcion' ? '📝' : evt.type === 'final' ? '🏆' : '💻'} ${evt.org}
+                        ${evt.type === 'inscripcion' ? '📝' : evt.type === 'final' ? '🏆' : '💻'} ${evt.title}
                     </div>`;
                 });
 
