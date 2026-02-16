@@ -100,9 +100,9 @@
 
           <!-- Filters Desktop -->
           <div class="hidden md:flex bg-slate-800 p-1 rounded-lg border border-slate-700" role="group" aria-label="Filtros">
-            <button type="button" data-filter="all" class="filter-btn bg-white text-slate-900 px-3 py-1.5 rounded text-xs font-bold transition shadow">TODAS</button>
-            <button type="button" data-filter="open" class="filter-btn text-slate-400 px-3 py-1.5 rounded text-xs font-bold transition hover:text-white">OPENS</button>
-            <button type="button" data-filter="final" class="filter-btn text-slate-400 px-3 py-1.5 rounded text-xs font-bold transition hover:text-white">FINALES</button>
+            <button type="button" data-filter="all" data-filter-ui="desktop" class="filter-btn bg-white text-slate-900 px-3 py-1.5 rounded text-xs font-bold transition shadow">TODAS</button>
+            <button type="button" data-filter="open" data-filter-ui="desktop" class="filter-btn text-slate-400 px-3 py-1.5 rounded text-xs font-bold transition hover:text-white">OPENS</button>
+            <button type="button" data-filter="final" data-filter-ui="desktop" class="filter-btn text-slate-400 px-3 py-1.5 rounded text-xs font-bold transition hover:text-white">FINALES</button>
           </div>
         </div>
       </div>
@@ -110,9 +110,9 @@
 
     <!-- Mobile Filters -->
     <div class="md:hidden flex justify-around py-2 bg-slate-800 border-t border-slate-700" role="group" aria-label="Filtros móviles">
-      <button type="button" data-filter="all" class="filter-btn text-[10px] font-bold text-white bg-slate-700 px-3 py-1 rounded border border-slate-600 shadow">TODO</button>
-      <button type="button" data-filter="open" class="filter-btn text-[10px] font-bold text-slate-400 px-3 py-1">OPENS</button>
-      <button type="button" data-filter="final" class="filter-btn text-[10px] font-bold text-slate-400 px-3 py-1">FINALES</button>
+      <button type="button" data-filter="all" data-filter-ui="mobile" class="filter-btn text-[10px] font-bold text-white bg-slate-700 px-3 py-1 rounded border border-slate-600 shadow">TODO</button>
+      <button type="button" data-filter="open" data-filter-ui="mobile" class="filter-btn text-[10px] font-bold text-slate-400 px-3 py-1">OPENS</button>
+      <button type="button" data-filter="final" data-filter-ui="mobile" class="filter-btn text-[10px] font-bold text-slate-400 px-3 py-1">FINALES</button>
     </div>
   </nav>
 
@@ -638,7 +638,7 @@
           const iconEmoji = evt.type === 'inscripcion' ? '📝' : (evt.type === 'final' ? '🏆' : '💻');
           return `
             <button type="button"
-              onclick="openModal(${evt.id}); event.stopPropagation();"
+              onclick="openModal(${evt.id})"
               class="event-bar ${cfg.calBg} text-white shadow hover:opacity-90 text-left"
               aria-label="Abrir ${evt.org} (${evt.title})">
               ${iconEmoji} ${evt.title}
@@ -705,18 +705,22 @@
     function setActiveFilterButtons(){
       document.querySelectorAll('.filter-btn').forEach(btn => {
         const f = btn.dataset.filter;
+        const isDesktopBtn = btn.dataset.filterUi === 'desktop';
         const active = f === currentFilter;
 
         // desktop style
-        btn.classList.toggle('bg-white', active && btn.classList.contains('md:px-3'));
-        btn.classList.toggle('text-slate-900', active && btn.classList.contains('md:px-3'));
-        btn.classList.toggle('shadow', active && btn.classList.contains('md:px-3'));
+        btn.classList.toggle('bg-white', active && isDesktopBtn);
+        btn.classList.toggle('text-slate-900', active && isDesktopBtn);
+        btn.classList.toggle('shadow', active && isDesktopBtn);
 
         // unified: apply clean active/inactive for both
         if(active){
-          btn.classList.add('text-white');
-          btn.classList.remove('text-slate-400');
-          if(btn.classList.contains('md:px-3') === false){
+          if(isDesktopBtn){
+            btn.classList.remove('text-white');
+            btn.classList.remove('text-slate-400');
+          }else{
+            btn.classList.add('text-white');
+            btn.classList.remove('text-slate-400');
             btn.classList.add('bg-slate-700','border','border-slate-600','shadow');
           }
         }else{
